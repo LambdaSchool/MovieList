@@ -43,7 +43,16 @@ class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieC
         tableView.reloadData()
     }
  
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+                movieController?.delete(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    }
     
     //METHODS: - PROPERTIES
     @IBOutlet weak var tableView: UITableView!

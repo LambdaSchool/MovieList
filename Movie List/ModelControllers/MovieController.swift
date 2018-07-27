@@ -22,5 +22,9 @@ class MovieController {
     func switchHasBeenSeen(movie: Movie) {
         movie.hasMovieBeenSeen = !movie.hasMovieBeenSeen
     }
+    
+    func delete(at indexPath: Int) {
+        movies.remove(at: indexPath)
+    }
 
 }
