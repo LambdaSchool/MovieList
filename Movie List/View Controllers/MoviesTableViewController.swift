@@ -10,7 +10,7 @@ import UIKit
 
 class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieControllerProtocol, UITableViewDelegate, MovieTableViewCellDelegate, UISearchBarDelegate {
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    
     
     //MARK: - METHODS
     override func viewDidLoad() {
@@ -79,4 +79,5 @@ class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieC
     //METHODS: - PROPERTIES
     @IBOutlet weak var tableView: UITableView!
     var movieController: MovieController?
+    @IBOutlet weak var searchBar: UISearchBar!
 }

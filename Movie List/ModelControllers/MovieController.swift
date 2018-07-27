@@ -31,6 +31,7 @@ class MovieController {
     
     func sort() {
         movies = movies.sorted(by: {$0.movieTitle < $1.movieTitle})
+        currentMoviesArray = movies
     }
 
 }
