@@ -8,15 +8,14 @@
 
 import UIKit
 
-class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieControllerProtocol {
+class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieControllerProtocol, UITableViewDelegate, MovieTableViewCellDelegate {
     
-    //MARK: - TABLE VIEW DATA SOURCE
-    
-    
+   
     //MARK: - METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -24,6 +23,7 @@ class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieC
         guard let movieCell = cell as? MovieTableViewCell else {return cell}
         let movie = movieController?.movies[indexPath.row]
         movieCell.movie = movie
+        movieCell.delegate = self
         return movieCell
     }
     
@@ -31,11 +31,18 @@ class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieC
         return movieController?.movies.count ?? 0
     }
     
+    func seenButtonWasTapped(on cell: MovieTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else {return}
+        guard let movie = movieController?.movies[indexPath.row] else {return}
+        movieController?.switchHasBeenSeen(movie: movie)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-    
+ 
     
     
     //METHODS: - PROPERTIES

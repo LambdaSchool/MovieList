@@ -8,9 +8,11 @@
 
 import UIKit
 
-class MovieTableViewCell: UITableViewCell {
+protocol MovieTableViewCellDelegate: class {
+    func seenButtonWasTapped(on cell: MovieTableViewCell)
+}
 
-    
+class MovieTableViewCell: UITableViewCell {
     
     //MARK: - PROPERTIES
     @IBOutlet weak var movieLabel: UILabel!
@@ -20,21 +22,21 @@ class MovieTableViewCell: UITableViewCell {
             updateViews()
         }
     }
+    weak var delegate: MovieTableViewCellDelegate?
     
     
     //MARK: - METHODS
     @IBAction func seenButtonPressed(_ sender: Any) {
-        movie!.hasMovieBeenSeen = !(movie!.hasMovieBeenSeen)
-        updateViews()
+        delegate?.seenButtonWasTapped(on: self)
         }
     
     func updateViews() {
         guard let movie = movie else {return}
         movieLabel.text = movie.movieTitle
         if movie.hasMovieBeenSeen {
-            seenButton.setTitle("Not Seen", for: .normal)
-        } else {
             seenButton.setTitle("Seen", for: .normal)
+        } else {
+            seenButton.setTitle("Not Seen", for: .normal)
         }
     }
     

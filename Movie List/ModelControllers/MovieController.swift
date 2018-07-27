@@ -10,14 +10,17 @@ import Foundation
 
 class MovieController {
     
-    //MARK: - PROPERTIES
-    private(set) var movies: [Movie] = []
+    //MARK: varROPERTIES
+    private(set) var movies = [Movie]()
     
     //MARK: - METHODS
     func createNewMovie(movieTitle: String) {
-        let movie = Movie(movieTitle: movieTitle, hasMovieBeenSeen: false)
+        let movie = Movie(movieTitle: movieTitle)
         movies.append(movie)
     }
     
-    
+    func switchHasBeenSeen(movie: Movie) {
+        movie.hasMovieBeenSeen = !movie.hasMovieBeenSeen
+    }
+
 }

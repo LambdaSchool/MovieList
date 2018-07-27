@@ -107,8 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				BF914146210B6A2100C78DFA /* AddNewMoviesViewController.swift */,
-				BF914149210B6DE100C78DFA /* MoviesTableViewController.swift */,
 				BF91414B210B6E1B00C78DFA /* MovieTableViewCell.swift */,
+				BF914149210B6DE100C78DFA /* MoviesTableViewController.swift */,
 				BF91414D210B708B00C78DFA /* MovieTabViewController.swift */,
 			);
 			path = "View Controllers";

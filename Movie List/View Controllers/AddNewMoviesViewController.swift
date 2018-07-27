@@ -18,6 +18,7 @@ class AddNewMoviesViewController: UIViewController, MovieControllerProtocol {
     @IBAction func addMovieButtonPressed(_ sender: Any) {
         guard let movie = movieTextField.text else {return}
         movieController?.createNewMovie(movieTitle: movie)
+        movieTextField.text = ""
     }
     
     
