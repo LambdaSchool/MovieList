@@ -12,11 +12,13 @@ class MovieController {
     
     //MARK: varROPERTIES
     private(set) var movies = [Movie]()
+    var currentMoviesArray = [Movie]()
     
     //MARK: - METHODS
     func createNewMovie(movieTitle: String) {
         let movie = Movie(movieTitle: movieTitle)
         movies.append(movie)
+        currentMoviesArray = movies
     }
     
     func switchHasBeenSeen(movie: Movie) {

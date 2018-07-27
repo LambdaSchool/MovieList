@@ -8,27 +8,29 @@
 
 import UIKit
 
-class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieControllerProtocol, UITableViewDelegate, MovieTableViewCellDelegate {
+class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieControllerProtocol, UITableViewDelegate, MovieTableViewCellDelegate, UISearchBarDelegate {
     
-   
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     //MARK: - METHODS
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath)
         guard let movieCell = cell as? MovieTableViewCell else {return cell}
-        let movie = movieController?.movies[indexPath.row]
+        let movie = movieController?.currentMoviesArray[indexPath.row]
         movieCell.movie = movie
         movieCell.delegate = self
         return movieCell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movieController?.movies.count ?? 0
+        return movieController?.currentMoviesArray.count ?? 0
     }
     
     func seenButtonWasTapped(on cell: MovieTableViewCell) {
@@ -50,10 +52,29 @@ class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieC
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-                movieController?.delete(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+            movieController?.delete(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
     }
     }
+    
+    //SEARCH BAR
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let movieController = movieController else {return}
+        guard !searchText.isEmpty else {
+            movieController.currentMoviesArray = movieController.movies
+            tableView.reloadData()
+            return}
+        if movieController.movies.count > 0 {
+            movieController.currentMoviesArray = movieController.movies.filter({movie -> Bool in
+    
+                movie.movieTitle.lowercased().contains(searchText.lowercased())
+            })
+            tableView.reloadData()
+        }
+        
+    }
+    
     
     //METHODS: - PROPERTIES
     @IBOutlet weak var tableView: UITableView!
