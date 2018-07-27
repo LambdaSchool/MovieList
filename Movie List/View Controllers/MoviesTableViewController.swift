@@ -40,6 +40,7 @@ class MoviesTableViewController: UIViewController, UITableViewDataSource, MovieC
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        movieController?.sort()
         tableView.reloadData()
     }
  

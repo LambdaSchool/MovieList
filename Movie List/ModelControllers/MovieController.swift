@@ -26,5 +26,9 @@ class MovieController {
     func delete(at indexPath: Int) {
         movies.remove(at: indexPath)
     }
+    
+    func sort() {
+        movies = movies.sorted(by: {$0.movieTitle < $1.movieTitle})
+    }
 
 }
